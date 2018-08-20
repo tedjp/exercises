@@ -43,11 +43,30 @@ static Container mergesort(CIterator a, CIterator b) {
     return out;
 }
 
+template <typename It1, typename It2>
+bool matches(It1 lbegin, It1 lend, It2 rbegin, It2 rend) {
+    while (lbegin != lend && rbegin != rend) {
+        if (*lbegin++ != *rbegin++)
+            return false;
+    }
+
+    return lbegin == lend && rbegin == rend;
+}
+
 int main(void) {
     const std::array<char, 9> input = {'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'};
+    const std::array<char, 9> expect = {'a', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 's'};
 
-    for (const auto& element: mergesort(input.begin(), input.end()))
-        std::cout << element << '\n';
+    auto sorted = mergesort(input.begin(), input.end());
+
+    if (!matches(sorted.begin(), sorted.end(), expect.begin(), expect.end())) {
+        std::cerr << "Mismatch\n";
+
+        for (const auto& element: sorted)
+            std::cerr << element << '\n';
+
+        return 1;
+    }
 
     return 0;
 }
