@@ -4,8 +4,8 @@
 #include <vector>
 
 template <
-    typename T,
     typename CIterator,
+    typename T = typename std::iterator_traits<CIterator>::value_type,
     typename Container = std::vector<T>
     >
 static Container mergesort(CIterator a, CIterator b) {
@@ -16,8 +16,8 @@ static Container mergesort(CIterator a, CIterator b) {
 
     // 2. recurse
     auto mid = a + dist / 2;
-    auto left = mergesort<T>(a, mid);
-    auto right = mergesort<T>(mid, b);
+    auto left = mergesort(a, mid);
+    auto right = mergesort(mid, b);
 
     // 3. merge
     typename Container::size_type li = 0, ri = 0;
@@ -43,7 +43,7 @@ static Container mergesort(CIterator a, CIterator b) {
 int main(void) {
     const std::array<char, 9> input = {'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'};
 
-    for (const auto& element: mergesort<char>(input.begin(), input.end()))
+    for (const auto& element: mergesort(input.begin(), input.end()))
         std::cout << element << '\n';
 
     return 0;
