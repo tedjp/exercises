@@ -4,8 +4,8 @@
 
 template <
     typename T,
-    typename Container = std::vector<T>,
-    typename CIterator = typename Container::const_iterator
+    typename CIterator,
+    typename Container = std::vector<T>
     >
 static Container mergesort(CIterator a, CIterator b) {
     // 1. split
