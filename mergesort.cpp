@@ -1,3 +1,4 @@
+#include <array>
 #include <iostream>
 #include <vector>
 
@@ -39,7 +40,7 @@ static Container mergesort(CIterator a, CIterator b) {
 }
 
 int main(void) {
-    const std::vector<char> input = {'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'};
+    const std::array<char, 9> input = {'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'};
 
     for (const auto& element: mergesort<char>(input.begin(), input.end()))
         std::cout << element << '\n';
