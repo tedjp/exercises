@@ -18,8 +18,7 @@ static Container mergesort(CIterator a, CIterator b) {
     auto right = mergesort<T>(mid, b);
 
     // 3. merge
-    size_t li = 0;
-    size_t ri = 0;
+    typename Container::size_type li = 0, ri = 0;
     Container out;
     out.reserve(left.size() + right.size());
 
