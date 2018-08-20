@@ -3,23 +3,26 @@
 #include <iterator>
 #include <vector>
 
+// This merge is destructive to the source container;
+// after merging, the source will only contain moved-from objects,
+// a new container (usually vector) is returned with the objects
+// in order.
 template <
     typename CIterator,
     typename T = typename std::iterator_traits<CIterator>::value_type,
     typename Container = std::vector<T>
     >
 static Container mergesort(CIterator a, CIterator b) {
-    // 1. split
     auto dist = std::distance(a, b);
     if (dist == 1)
         return {a,b};
 
-    // 2. recurse
+    // split/recurse
     auto mid = a + dist / 2;
     auto left = mergesort(a, mid);
     auto right = mergesort(mid, b);
 
-    // 3. merge
+    // merge
     typename Container::size_type li = 0, ri = 0;
     Container out;
     out.reserve(left.size() + right.size());
