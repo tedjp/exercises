@@ -35,7 +35,7 @@ static std::vector<char> mergesort(std::vector<char>::const_iterator a, typename
 }
 
 int main(void) {
-    const std::vector<char> input = {'f', 'u', 'c', 'k', ' ', 'o', 'f', 'f', '!', '!'};
+    const std::vector<char> input = {'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'};
 
     std::vector<char> sorted = mergesort(input.begin(), input.end());
 
