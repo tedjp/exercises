@@ -1,8 +1,12 @@
 #include <iostream>
 #include <vector>
 
-template <typename T, typename CIterator = typename std::vector<T>::const_iterator>
-static std::vector<T> mergesort(CIterator a, CIterator b) {
+template <
+    typename T,
+    typename Container = std::vector<T>,
+    typename CIterator = typename Container::const_iterator
+    >
+static Container mergesort(CIterator a, CIterator b) {
     // 1. split
     auto dist = std::distance(a, b);
     if (dist == 1)
@@ -16,7 +20,7 @@ static std::vector<T> mergesort(CIterator a, CIterator b) {
     // 3. merge
     size_t li = 0;
     size_t ri = 0;
-    std::vector<T> out;
+    Container out;
     out.reserve(left.size() + right.size());
 
     while (li < left.size() && ri < right.size()) {
