@@ -1,21 +1,22 @@
 #include <iostream>
 #include <vector>
 
-static std::vector<char> mergesort(std::vector<char>::const_iterator a, typename std::vector<char>::const_iterator b) {
+template <typename T, typename CIterator = typename std::vector<T>::const_iterator>
+static std::vector<T> mergesort(CIterator a, CIterator b) {
     // 1. split
     auto dist = std::distance(a, b);
     if (dist == 1)
-        return std::vector<char>(a, b);
+        return {a,b};
 
     // 2. recurse
     auto mid = a + dist / 2;
-    auto left = mergesort(a, mid);
-    auto right = mergesort(mid, b);
+    auto left = mergesort<T>(a, mid);
+    auto right = mergesort<T>(mid, b);
 
     // 3. merge
     size_t li = 0;
     size_t ri = 0;
-    std::vector<char> out;
+    std::vector<T> out;
     out.reserve(left.size() + right.size());
 
     while (li < left.size() && ri < right.size()) {
@@ -37,9 +38,7 @@ static std::vector<char> mergesort(std::vector<char>::const_iterator a, typename
 int main(void) {
     const std::vector<char> input = {'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'};
 
-    std::vector<char> sorted = mergesort(input.begin(), input.end());
-
-    for (const auto& element: sorted)
+    for (const auto& element: mergesort<char>(input.begin(), input.end()))
         std::cout << element << '\n';
 
     return 0;
