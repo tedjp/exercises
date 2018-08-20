@@ -1,5 +1,7 @@
 #include <iostream>
 #include <stdexcept>
+#include <stack>
+#include <deque>
 
 struct Node {
     Node(int v):
@@ -23,6 +25,7 @@ struct Node {
     -3   8
 #endif
 
+// O(n) n: nodes
 static int sum_recursive(const Node* node) {
     if (node == nullptr)
         return 0;
@@ -44,4 +47,46 @@ int main(void) {
     twelve.right = &eight;
 
     std::cout << "recursive result: " << sum_recursive(root) << std::endl;
+
+    int sum = 0;
+
+    std::stack<Node*> stk;
+
+    stk.push(root);
+
+    while (!stk.empty()) {
+        Node* n = stk.top();
+        stk.pop();
+
+        if (n->right)
+            stk.push(n->right);
+        if (n->left)
+            stk.push(n->left);
+        std::cerr << "adding " << n->value << std::endl;
+        sum += n->value;
+    }
+
+    std::cout << "Loop result (depth first): " << sum << std::endl;
+
+    sum = 0;
+
+    std::deque<Node*> dq;
+
+    dq.push_back(root);
+
+    while (!dq.empty()) {
+        Node *n = dq.front();
+        dq.pop_front();
+
+        if (n->right)
+            dq.push_back(n->right);
+        if (n->left)
+            dq.push_back(n->left);
+
+        std::cerr << "adding " << n->value << std::endl;
+        sum += n->value;
+    }
+
+    std::cout << "Loop result (breadth-first): " << sum << std::endl;
+    return 0;
 }
