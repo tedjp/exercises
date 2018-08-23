@@ -6,14 +6,12 @@
 struct Node {
     Node(int v):
         value(v),
-//        sum(0),
         left(nullptr),
         right(nullptr)
     {
     }
 
     int value = 0;
-//    int sum;
     Node *left = nullptr, *right = nullptr;
 };
 
@@ -62,7 +60,7 @@ int main(void) {
             stk.push(n->right);
         if (n->left)
             stk.push(n->left);
-        std::cerr << "adding " << n->value << std::endl;
+
         sum += n->value;
     }
 
@@ -83,7 +81,6 @@ int main(void) {
         if (n->left)
             dq.push_back(n->left);
 
-        std::cerr << "adding " << n->value << std::endl;
         sum += n->value;
     }
 
